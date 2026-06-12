@@ -1,1 +1,59 @@
+Algorithme Analyse_Phrase
+Variables
+    phrase : CHAINE
+    caractere_courant : CARACTERE
+    i, longueur, nb_mots, nb_voyelles : ENTIER
 
+Debut
+    // Initialisation des trois compteurs
+    longueur <- 0
+    nb_mots <- 0
+    nb_voyelles <- 0
+    
+    Ecrire("Entrez une phrase se terminant par un point : ")
+    Lire(phrase)
+    
+    // Initialisation du premier caractère pour entrer dans la boucle
+    i <- 1
+    caractere_courant <- phrase[i]
+    
+    // Boucle de lecture caractère par caractère jusqu'au point final
+    TantQue caractere_courant != '.' Faire
+    
+        // 1. Compteur de longueur (on compte chaque caractère lu)
+        longueur <- longueur + 1
+        
+        // 2. Compteur de voyelles (on vérifie minuscules et majuscules)
+        Si caractere_courant Dans ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'] Alors
+            nb_voyelles <- nb_voyelles + 1
+        FinSi
+        
+        // 3. Compteur de mots
+        // Si on croise un espace, cela signifie qu'un mot vient de se terminer
+        Si caractere_courant = ' ' Alors
+            nb_mots <- nb_mots + 1
+        FinSi
+        
+        // Passage au caractère suivant
+        i <- i + 1
+        caractere_courant <- phrase[i]
+        
+    FinTantQue
+    
+    // --- Ajustements finaux après la sortie de la boucle (gestion du point) ---
+    
+    // Le point final fait partie de la phrase, on l'ajoute à la longueur totale
+    longueur <- longueur + 1 
+    
+    // Le dernier mot n'est pas suivi d'un espace mais d'un point. 
+    // Si la phrase contient au moins le point, il y avait au moins un mot (sauf si la phrase était juste ".").
+    Si longueur > 1 Alors
+        nb_mots <- nb_mots + 1
+    FinSi
+
+    // Affichage des résultats
+    Ecrire("La longueur de la phrase est : ", longueur, " caractères.")
+    Ecrire("Le nombre de mots est : ", nb_mots)
+    Ecrire("Le nombre de voyelles est : ", nb_voyelles)
+
+Fin
